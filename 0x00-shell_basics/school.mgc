@@ -1,2 +1,2 @@
-- 0 string SCHOOL School
-!:mine School
+#!/bin/bash
+file --mime-type -m School.mgc * School.mgc

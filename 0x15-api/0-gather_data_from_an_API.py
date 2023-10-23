@@ -15,11 +15,10 @@ def main():
     todos_data = requests.get(f'{url}{todos}', timeout=15).json()
     # get number of completed task from todo data
     completed = filter(is_complete, list(todos_data))
-    total_todo = len(todos_data)
-    done_todos = list(completed)
-    print(f'''Employee {name} is done with
-          tasks({len(done_todos)}/{total_todo}):''')
-    for task in done_todos:
+    total = len(todos_data)
+    done_t = list(completed)
+    print(f'Employee {name} is done with tasks({len(done_t)}/{total}):')
+    for task in done_t:
         print("\t "+task.get("title"))
 
 

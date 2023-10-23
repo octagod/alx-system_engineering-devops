@@ -1,13 +1,12 @@
 #!/usr/bin/python3
 """ module doc """
-import sys
 import requests
+import sys
 
 
 def main():
     """ def com """
     id = sys.argv[1]
-    print(id)
     url = 'https://jsonplaceholder.typicode.com/'
     users = f'users/{id}'
     todos = f'todos?userId={id}'
@@ -18,7 +17,8 @@ def main():
     completed = filter(is_complete, list(todos_data))
     total_todo = len(todos_data)
     done_todos = list(completed)
-    print(f'Employee {name} is done with tasks({len(done_todos)}/{total_todo}):')
+    print(f'''Employee {name} is done with
+          tasks({len(done_todos)}/{total_todo}):''')
     for task in done_todos:
         print("\t "+task.get("title"))
 

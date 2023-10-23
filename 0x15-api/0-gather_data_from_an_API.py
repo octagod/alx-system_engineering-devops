@@ -1,26 +1,31 @@
 #!/usr/bin/python3
 """ module doc """
-import requests
 import sys
+import requests
 
 
 def main():
     """ def com """
     id = sys.argv[1]
-    url = f'https://jsonplaceholder.typicode.com/'
-    users = f'users?id={id}'
+    print(id)
+    url = 'https://jsonplaceholder.typicode.com/'
+    users = f'users/{id}'
     todos = f'todos?userId={id}'
-    done = f'{todos}&completed=true'
-    notDone = f'{todos}&completed=false'
-    userData = requests.get(f'{url}{users}').json()
-    Name = userData[0].get("name")
-    todosData = requests.get(f'{url}{todos}').json()
-    todosDone = requests.get(f'{url}{done}').json()
-    doneN = len(todosDone)
-    totalN = len(todosData)
-    print(f'Employee {Name} is done with tasks({doneN}/{totalN}):')
-    for task in todosDone:
+    user_data = requests.get(f'{url}{users}', timeout=10).json()
+    name = user_data.get("name")
+    todos_data = requests.get(f'{url}{todos}', timeout=15).json()
+    # get number of completed task from todo data
+    completed = filter(is_complete, list(todos_data))
+    total_todo = len(todos_data)
+    done_todos = list(completed)
+    print(f'Employee {name} is done with tasks({len(done_todos)}/{total_todo}):')
+    for task in done_todos:
         print("\t "+task.get("title"))
+
+
+def is_complete(todo):
+    """Check if todo is complete"""
+    return todo["completed"]
 
 
 if __name__ == "__main__":

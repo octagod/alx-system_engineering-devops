@@ -13,7 +13,6 @@ def main():
     user_data = requests.get(f'{url}{users}', timeout=10).json()
     name = user_data.get("name")
     todos_data = requests.get(f'{url}{todos}', timeout=15).json()
-    # get number of completed task from todo data
     completed = filter(is_complete, list(todos_data))
     total = len(todos_data)
     done_t = list(completed)
@@ -24,7 +23,7 @@ def main():
 
 def is_complete(todo):
     """Check if todo is complete"""
-    return todo["completed"]
+    return todo.get("completed")
 
 
 if __name__ == "__main__":
